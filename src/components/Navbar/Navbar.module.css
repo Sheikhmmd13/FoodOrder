@@ -1,0 +1,29 @@
+.navbar {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .35));
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 8px 22px rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+
+.navbar li {
+    position: relative;
+    transition: color .2s ease-out;
+    color: white;
+
+}
+
+.navbar li::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    background-color: white;
+    transition: all .3s ease-out;
+}
+
+.navbar li:hover::after {
+    right: 0%;
+    left: 0%;
+}
