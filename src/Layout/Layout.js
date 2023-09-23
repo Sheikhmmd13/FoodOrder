@@ -1,10 +1,8 @@
-import Navbar from '../components/Navbar/Navbar';
 import HomePage from '../components/Home Page/HomePage';
 
 function Layout() {
 	return (
-		<div>
-			<Navbar />
+		<div className='flex justify-center items-center h-[100vh] w-[100vw]'>
 			<HomePage />
 		</div>
 	);
