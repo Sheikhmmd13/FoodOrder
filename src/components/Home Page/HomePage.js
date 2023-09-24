@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
+import { faBurger } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import classes from './HomePage.module.css';
 import Navbar from '../Navbar/Navbar';
-import FoodsList from '../Foods List/FoodsList';
-import { faBurger } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FoodsList from '../Foods/FoodsList';
 
 
 function HomePage() {
