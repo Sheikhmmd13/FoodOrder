@@ -1,3 +1,7 @@
-.App {
-  text-align: center;
+.mainBody {
+  background: linear-gradient(130deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: 0px 8px 32px 0px rgba(255, 255, 255, .37);
+  border-radius: 2rem;
 }

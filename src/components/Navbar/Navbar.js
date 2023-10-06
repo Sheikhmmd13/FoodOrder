@@ -1,35 +1,67 @@
+import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { faBars, faCartShopping, faX } from '@fortawesome/free-solid-svg-icons';
 
 import classes from './Navbar.module.css';
-import { toggle } from '../../Redux/Slices/ShowCartSlice';
+import FoodContext from '../../Context/FoodsContext';
+import { Link, NavLink } from 'react-router-dom';
 
-function Navbar() {
-	const count = useSelector((state) => state.counter.value);
-	const showcart = useSelector(state => state.showCart.isShownCart);
-	const dispatch = useDispatch();
+function Navbar(props) {
+	const [showMenu, setShowMenu] = useState(false);
+	const navliksClasses = [' top-full', 'opacity-100'];
+	const foodCtx = useContext(FoodContext);
+
+	const numberOfItem = foodCtx.items.reduce((CurrentNumber, item) => {
+		return CurrentNumber + item.amount;
+	}, 0);
+
+	function toggleMenu() {
+		setShowMenu(!showMenu);
+	}
 
 	return (
 		<nav
-			className={`${classes.navbar} w-full h-12 flex justify-between px-7 py-3 left-1/2 -translate-x-1/2 absolute`}>
+			className={`${classes.navbar} w-full h-12 flex justify-between px-[7%] py-3 sticky top-0`}>
 			<div className="flex items-center justify-around h-3/4my-auto">
 				<h1 className="font-bold text-white text-3xl">Logo</h1>
 			</div>
-			<ul className="w-1/4 flex items-center justify-around h-3/4 my-auto text-xl after:conte">
-				<li className="cursor-pointer">Home</li>
-				<li className="cursor-pointer">Food</li>
-				<li className="cursor-pointer">Contact</li>
-			</ul>
-			<div className="flex flex-row justify-around items-center gap-1 h-auto my-auto text-xl text-white cursor-pointer">
-				<FontAwesomeIcon
-					icon={faCartShopping}
-					onClick={() => {dispatch(toggle()); console.log(showcart)}}
-				/>
-				<span className="bg-orange-700 px-2 rounded-lg h-auto">
-					{count}
-				</span>
+			<div
+				className={`${classes.icons} text-white text-xl h-full my-auto cursor-pointer icons`}>
+				{showMenu ? (
+					<FontAwesomeIcon
+						icon={faX}
+						className={classes.x}
+						onClick={toggleMenu}
+					/>
+				) : (
+					<FontAwesomeIcon
+						icon={faBars}
+						className={`${classes.menu}`}
+						onClick={toggleMenu}
+					/>
+				)}
 			</div>
+			<ul
+				className={`${classes.navlinks} ${
+					showMenu ? navliksClasses.join(' ') : null
+				} flex items-center justify-around my-auto text-xl after:conter`}>
+				<li className="cursor-pointer py-1">
+					<NavLink to={'/'}>Home</NavLink>
+				</li>
+				<li className="cursor-pointer py-1">
+					<NavLink to={'/order'}>Order</NavLink>
+				</li>
+				<li className="cursor-pointer py-1">Contact</li>
+				<li className="cursor-pointer py-1 flex items-center justify-center gap-2">
+					<FontAwesomeIcon
+						icon={faCartShopping}
+						onClick={props.toggleModal}
+					/>
+					<span className="bg-orange-700 px-2 rounded-lg h-auto">
+						{foodCtx.items.length}
+					</span>
+				</li>
+			</ul>
 		</nav>
 	);
 }

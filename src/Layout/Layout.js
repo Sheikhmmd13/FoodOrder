@@ -1,14 +1,24 @@
-import { useSelector } from 'react-redux';
 
+import { useState } from 'react';
 import Cart from '../Components/Cart/Cart';
-import HomePage from '../Components/Home Page/HomePage';
+import Main from '../Components/Main/Main';
+import Navbar from '../Components/Navbar/Navbar';
 
 function Layout() {
-	const showCart = useSelector(state => state.showCart.isShownCart);
+	const [isShowModal, setIsShowModal] = useState(false);
+
+	function showModal(){
+		setIsShowModal(true)
+	}
+	function closeModal(){
+		setIsShowModal(false)
+	}
+
 	return (
-		<div className='flex justify-center items-center h-[100vh] w-[100vw]'>
-			{showCart ? <Cart /> : null}
-			<HomePage />
+		<div className='mainBody w-3/4 h-4/5'>
+			{isShowModal ? <Cart onCloseModal={closeModal}/> : null}
+			<Navbar onShowModal={showModal}/>
+			<Main />
 		</div>
 	);
 }

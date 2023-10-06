@@ -1,0 +1,5 @@
+@media (max-width: 360px) {
+    .aside {
+        margin-top: 15rem !important;
+    }
+}

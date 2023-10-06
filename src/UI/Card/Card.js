@@ -1,64 +1,47 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faMinus } from '@fortawesome/free-solid-svg-icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { increase, decrease } from '../../Redux/Slices/CounterSlice';
-import { FoodActions } from '../../Redux/Slices/FoodsSlice';
+import { useContext } from 'react';
 
+import FoodContext from '../../Context/FoodsContext';
+import Input from '../Input/Input';
 import classes from './Card.module.css';
-import { useEffect } from 'react';
 
-export default function Card({ name, price, id }) {
-	const count = useSelector((state) => state.counter.value);
-	const Foods = useSelector((state) => state.foods);
-	const dispatch = useDispatch();
+export default function Card(props) {
+	const FoodCtx = useContext(FoodContext);
 
-	useEffect(() => {
-		if (name === 'Burger') {
-			dispatch(FoodActions.addBurger(count));
-		}
-	}, [count]);
+	const addFoodToCart = (amount) => {
+		const item = {
+			id: props.id,
+			name: props.name,
+			amount: amount,
+			price: props.price,
+		};
+		FoodCtx.addItem(item);
 
-	const amoundOfFood = () => {
-		// by seleceting id find food amount
-	}
+	};
 
 	return (
 		<div
-			className={`${classes.container} bg-[#fff] rounded-xl hover:scale-105 flex justify-between`}>
+			className={`${classes.container} bg-[#fff] rounded-xl py-2 px-5 hover:scale-105 flex justify-between items-center max-lg:px-4 max-sm:px-3
+			`}>
 			<div
 				className={`${classes.information} flex justify-start flex-col gap-1`}>
-				<h2 className="text-xl font-bold">{name}</h2>
-				<p>Price: {price}$</p>
-			</div>{' '}
-			{/* for title and price */}
+				<h2 className="text-xl font-bold">{props.name}</h2>
+				<p>Price: <span className='text-orange-700'>${+props.price}</span></p>
+			</div>
 			<div
-				className={`${classes.functions} flex flex-col justify-center gap-2`}>
-				<div className={`flex justify-between items-center gap-1`}>
-					<FontAwesomeIcon
-						icon={faPlus}
-						className="cursor-pointer hover:text-orange-700 transition-colors"
-						onClick={() => {
-							dispatch(increase());
-						}}
-					/>
-					<span className="bg-orange-700 px-2 rounded-lg h-auto text-white">
-						{amoundOfFood}
-					</span>
-					<FontAwesomeIcon
-						icon={faMinus}
-						className="cursor-pointer  hover:text-orange-700 transition-colors"
-						onClick={() => {
-							dispatch(decrease());
-						}}
-					/>
-				</div>
-				<button
-					className={`${classes.addBtn} outline outline-1 outline-orange-700 text-orange-700 px-3 rounded-lg hover:outline-none hover:bg-orange-700 hover:text-white transition-all`}>
-					Add
-				</button>
-			</div>{' '}
-			{/* for amound and add to cart */}
+				className={`${classes.functions} flex flex-col justify-center gap-3 w-2/5 `}>
+				<Input
+					label="amount"
+					addFood={addFoodToCart}
+					input={{
+						id: props.id,
+						type: 'number',
+						min: 1,
+						max: 5,
+						step: 1,
+						defaultValue: 0,
+					}}
+				/>
+			</div>
 		</div>
 	);
 }
