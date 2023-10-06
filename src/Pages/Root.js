@@ -17,7 +17,7 @@ function Root() {
     }
 
 	return (
-		<div className="mainBody w-3/4 h-[85vh]">
+		<div className="mainBody w-3/4 h-[85vh] overflow-hidden">
 			{showModal ? <Cart toggleModal={ShowingModalToggle}/> : null}
             <Navbar toggleModal={ShowingModalToggle}/>
 			<main className="w-full h-full px-2 py-1">

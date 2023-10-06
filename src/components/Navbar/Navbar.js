@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 function Navbar(props) {
 	const [showMenu, setShowMenu] = useState(false);
-	const navliksClasses = [' top-full', 'opacity-100'];
+	const navliksClasses = [' top-10', 'opacity-100'];
 	const foodCtx = useContext(FoodContext);
 
 	const numberOfItem = foodCtx.items.reduce((CurrentNumber, item) => {
@@ -21,7 +21,7 @@ function Navbar(props) {
 
 	return (
 		<nav
-			className={`${classes.navbar} w-full h-12 flex justify-between px-[7%] py-3 sticky top-0`}>
+			className={`${classes.navbar} w-full h-12 flex justify-between px-[7%] py-3`}>
 			<div className="flex items-center justify-around h-3/4my-auto">
 				<h1 className="font-bold text-white text-3xl">Logo</h1>
 			</div>

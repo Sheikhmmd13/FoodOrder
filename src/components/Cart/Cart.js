@@ -9,6 +9,7 @@ import CartItem from '../../UI/CartItem/CartItem';
 const Backdrop = () => <div className={classes.backdrop} />;
 const Overlay = (props) => {
 	const foodCtx = useContext(FoodContext);
+	const totalAmount = `$${foodCtx.totalAmount.toFixed(2)}`
 
 	console.log(foodCtx.totalAmount)
 	const cartItemAddHandler = (item) => {
@@ -42,7 +43,7 @@ const Overlay = (props) => {
 						Close
 					</button>
 					<button className="w-1/2 max-lg:w-full bg-orange-700 text-white py-2 px-4 rounded-lg hover:bg-orange-900 transition-all">
-						Order
+						Order {totalAmount}
 					</button>
 				</div>
 			</div>
