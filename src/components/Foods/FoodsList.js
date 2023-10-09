@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+	faSpinner,
+	faCircleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function FoodsList() {
 	const [Foods, setFoods] = useState([]);
@@ -36,7 +39,6 @@ export default function FoodsList() {
 		};
 
 		fetchFoods().catch((error) => {
-			console.log('error is: ' + error);
 			setIsLoading(false);
 			setHttpError(error);
 		});
@@ -54,15 +56,36 @@ export default function FoodsList() {
 
 	if (httpError) {
 		return (
-			<section>
-				{/* <h2 className='text-red-600'>{httpError}</h2> */}
+			<section className="flex flex-col justify-center items-center gap-3">
+				<FontAwesomeIcon
+					className="text-4xl text-red-600"
+					icon={faCircleExclamation}
+				/>
+				<h2 className="text-2xl font-bold text-red-600">
+					SomeThing went Wrong!
+				</h2>
+				<p className="text-red-500">Please Reload the Page</p>
 			</section>
 		);
 	}
 
 	const FoodsList = Foods.map((Food) => (
-		<Card key={Food.id} id={Food.id} name={Food.name} price={Food.price} />
+		<>
+			<Card
+				key={Food.id}
+				id={Food.id}
+				name={Food.name}
+				price={Food.price}
+			/>
+		</>
 	));
 
-	return <>{FoodsList}</>;
+	return (
+		<>
+			<h2 className="py-4 text-3xl font-bold text-white uppercase">
+				Today Foods
+			</h2>
+			{FoodsList}
+		</>
+	);
 }
