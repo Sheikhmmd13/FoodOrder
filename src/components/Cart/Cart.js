@@ -9,6 +9,7 @@ import CartItem from '../../UI/CartItem/CartItem';
 const Backdrop = () => <div className={classes.backdrop} />;
 const Overlay = (props) => {
 	const foodCtx = useContext(FoodContext);
+	// console.log(foodCtx.totalAmount)
 	const totalAmount = `$${foodCtx.totalAmount.toFixed(2)}`
 
 	console.log(foodCtx.totalAmount)

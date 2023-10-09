@@ -14,9 +14,9 @@ function FoodStateReducer(state, action) {
 				(item) => item.id === action.item.id
 			);
 			const existingCartItem = state.items[existingCartItemIndex];
-			console.log(action.item.amount, action.item.price);
+			console.log(action.item.amount * action.item.price);
 			const updatedTotalAmount_onAdd =
-				state.totalAmount + action.item.price * action.item.amout;
+				state.totalAmount + action.item.amount * action.item.price;
 
 			let updatedItems_onAdd;
 
